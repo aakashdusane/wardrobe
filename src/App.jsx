@@ -17,6 +17,8 @@ const TYPES = [
 
 const TYPE_MAP = Object.fromEntries(TYPES.map((type) => [type.id, type]));
 const TYPE_ORDER = Object.fromEntries(TYPES.slice(1).map((type, index) => [type.id, index]));
+const WARDROBE_URL = import.meta.env.PROD ? "/wardrobe/library.json" : "/api/import/wardrobe";
+const OUTFITS_URL = import.meta.env.PROD ? "/wardrobe/outfits.json" : "/api/import/outfits";
 
 
 function readEdits() {
@@ -634,7 +636,7 @@ export function App() {
   const [outfitsError, setOutfitsError] = useState("");
 
   useEffect(() => {
-    fetch("/api/import/wardrobe", { cache: "no-store" })
+    fetch(WARDROBE_URL, { cache: "no-store" })
       .then((response) => {
         if (!response.ok) throw new Error("Could not load the wardrobe.");
         return response.json();
@@ -650,7 +652,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/import/outfits", { cache: "no-store" })
+    fetch(OUTFITS_URL, { cache: "no-store" })
       .then((response) => {
         if (!response.ok) throw new Error("Could not load the outfits.");
         return response.json();
