@@ -6,6 +6,7 @@ import sharp from "sharp";
 const API_ROOT = "/api/import/jobs";
 const ASSET_ROOT = "/api/import/assets";
 const LIBRARY_ASSET_ROOT = "/api/import/library";
+const OUTFIT_ASSET_ROOT = "/api/import/outfits";
 const STAGES = new Set(["crop", "garment", "modeled"]);
 const DECISIONS = new Set(["approve", "reject"]);
 const PARTS = new Set(["upperbody", "wholebody_up", "lowerbody", "accessories_up", "shoes"]);
@@ -345,6 +346,8 @@ export function wardrobeImportApi(options = {}) {
   let jobsDir;
   let importedFile;
   let libraryAssetDir;
+  let outfitsFile;
+  let outfitAssetDir;
   const running = new Map();
   const setting = (name, fallback = "") => options.env?.[name] || process.env[name] || fallback;
   const apiBaseUrl = () => setting("OPENAI_API_BASE_URL", "https://api.openai.com/v1").replace(/\/$/, "");
@@ -381,6 +384,23 @@ export function wardrobeImportApi(options = {}) {
   async function loadImported() {
     try { return JSON.parse(await readFile(importedFile, "utf8")); }
     catch (error) { if (error.code === "ENOENT") return []; throw error; }
+  }
+
+  async function loadOutfits() {
+    try {
+      const collection = JSON.parse(await readFile(outfitsFile, "utf8"));
+      const outfits = Array.isArray(collection?.outfits) ? collection.outfits : [];
+      return {
+        version: collection?.version || 1,
+        outfits: outfits.map((outfit) => ({
+          ...outfit,
+          image: outfit.image ? `${OUTFIT_ASSET_ROOT}/${path.basename(outfit.image)}` : null,
+        })),
+      };
+    } catch (error) {
+      if (error.code === "ENOENT") return { version: 1, outfits: [] };
+      throw error;
+    }
   }
 
   async function persistImported(job, includeModeled = false) {
@@ -494,6 +514,9 @@ export function wardrobeImportApi(options = {}) {
       if (url.pathname === "/api/import/wardrobe" && req.method === "GET") {
         return json(res, 200, await loadImported());
       }
+      if (url.pathname === OUTFIT_ASSET_ROOT && req.method === "GET") {
+        return json(res, 200, await loadOutfits());
+      }
       if (url.pathname === "/api/import/config" && req.method === "GET") {
         return json(res, 200, await setupStatus());
       }
@@ -513,6 +536,14 @@ export function wardrobeImportApi(options = {}) {
       const libraryAssetMatch = url.pathname.match(/^\/api\/import\/library\/([\w.-]+)$/i);
       if (libraryAssetMatch && req.method === "GET") {
         const file = path.join(libraryAssetDir, path.basename(libraryAssetMatch[1]));
+        await stat(file);
+        res.setHeader("Content-Type", "image/png");
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        return res.end(await readFile(file));
+      }
+      const outfitAssetMatch = url.pathname.match(/^\/api\/import\/outfits\/([a-z0-9-]+\.png)$/i);
+      if (outfitAssetMatch && req.method === "GET") {
+        const file = path.join(outfitAssetDir, path.basename(outfitAssetMatch[1]));
         await stat(file);
         res.setHeader("Content-Type", "image/png");
         res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
@@ -670,8 +701,11 @@ export function wardrobeImportApi(options = {}) {
       jobsDir = path.join(dataDir, "jobs");
       importedFile = path.join(dataDir, "library.json");
       libraryAssetDir = path.join(dataDir, "imported");
+      outfitsFile = path.join(dataDir, "outfits.json");
+      outfitAssetDir = path.join(dataDir, "outfit-images");
       await mkdir(jobsDir, { recursive: true });
       await mkdir(libraryAssetDir, { recursive: true });
+      await mkdir(outfitAssetDir, { recursive: true });
       const ids = await readdir(jobsDir).catch(() => []);
       for (const id of ids) {
         const job = await loadJob(id);

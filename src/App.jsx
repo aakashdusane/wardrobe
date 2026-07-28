@@ -175,6 +175,36 @@ function GalleryItem({ item, selected, onOpen }) {
   );
 }
 
+function humanize(value = "") {
+  return value.replace(/-/g, " ").replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function OutfitCard({ outfit, selected, onOpen }) {
+  return (
+    <button
+      className={`outfit-card${selected ? " selected" : ""}`}
+      type="button"
+      onClick={() => onOpen(outfit.id)}
+      aria-label={`View ${outfit.name}`}
+      aria-pressed={selected}
+      data-testid={`outfit-${outfit.id}`}
+    >
+      <OptimizedImage
+        className="outfit-card__image"
+        src={outfit.image}
+        alt=""
+        sizes="(max-width: 620px) calc(100vw - 36px), (max-width: 980px) calc(50vw - 42px), 420px"
+        breakpoints={[320, 480, 640, 800, 960]}
+      />
+      <span className="outfit-card__scrim" aria-hidden="true" />
+      <span className="outfit-card__copy">
+        <strong>{outfit.name}</strong>
+        <small>{(outfit.occasion || []).slice(0, 2).map(humanize).join(" · ")}</small>
+      </span>
+    </button>
+  );
+}
+
 function TagEditor({ tags, onChange }) {
   const [input, setInput] = useState("");
 
@@ -532,12 +562,76 @@ function ItemViewer({ item, onClose, onSave, onDelete }) {
   );
 }
 
+function OutfitViewer({ outfit, garments, onClose }) {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    const onKeyDown = (event) => event.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKeyDown);
+    document.body.classList.add("viewer-open");
+    closeButtonRef.current?.focus({ preventScroll: true });
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.classList.remove("viewer-open");
+    };
+  }, [onClose]);
+
+  return (
+    <div className="viewer-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <div className="viewer-entry outfit-viewer-entry">
+        <aside className="viewer outfit-viewer" role="dialog" aria-modal="true" aria-label={`${outfit.name} outfit details`}>
+          <button className="viewer-icon-close outfit-viewer__close" type="button" onClick={onClose} aria-label="Close outfit viewer" ref={closeButtonRef}>
+            <X size={24} weight="light" aria-hidden="true" />
+          </button>
+          <div className="outfit-viewer__hero">
+            <OptimizedImage
+              src={outfit.image}
+              alt={`${outfit.name} modeled outfit`}
+              sizes="(max-width: 860px) 100vw, 620px"
+              breakpoints={[480, 640, 800, 1040, 1280]}
+              quality={84}
+              priority
+            />
+          </div>
+          <div className="outfit-viewer__details">
+            <p className="outfit-viewer__eyebrow">Everyday look</p>
+            <h2>{outfit.name}</h2>
+            <div className="outfit-viewer__occasions" aria-label="Occasions">
+              {(outfit.occasion || []).map((occasion) => <span key={occasion}>{humanize(occasion)}</span>)}
+            </div>
+            {outfit.reason && <p className="outfit-viewer__reason">{outfit.reason}</p>}
+            {!!garments.length && (
+              <div className="outfit-viewer__garments">
+                <p>Pieces in this look</p>
+                <ul>
+                  {garments.map((garment) => (
+                    <li key={garment.id}>
+                      <span className="outfit-viewer__swatch" style={{ backgroundColor: garment.color || "#d8d0c2" }} aria-hidden="true" />
+                      <span>{garment.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
 export function App() {
   const [items, setItems] = useState([]);
+  const [outfits, setOutfits] = useState([]);
+  const [activeCollection, setActiveCollection] = useState("wardrobe");
   const [activeType, setActiveType] = useState("all");
+  const [activeOccasion, setActiveOccasion] = useState("all");
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedOutfitId, setSelectedOutfitId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [outfitsLoading, setOutfitsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [outfitsError, setOutfitsError] = useState("");
 
   useEffect(() => {
     fetch("/api/import/wardrobe", { cache: "no-store" })
@@ -555,7 +649,24 @@ export function App() {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    fetch("/api/import/outfits", { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error("Could not load the outfits.");
+        return response.json();
+      })
+      .then((collection) => setOutfits(Array.isArray(collection?.outfits) ? collection.outfits : []))
+      .catch((requestError) => setOutfitsError(requestError.message))
+      .finally(() => setOutfitsLoading(false));
+  }, []);
+
   const selectedItem = items.find((item) => item.id === selectedId) || null;
+  const selectedOutfit = outfits.find((outfit) => outfit.id === selectedOutfitId) || null;
+  const selectedOutfitGarments = useMemo(() => {
+    if (!selectedOutfit) return [];
+    const garmentIds = new Set(selectedOutfit.garmentIds || []);
+    return items.filter((item) => garmentIds.has(item.id));
+  }, [items, selectedOutfit]);
 
   const visibleItems = useMemo(() => {
     const filtered = activeType === "all" ? items : items.filter((item) => item.part === activeType);
@@ -568,9 +679,20 @@ export function App() {
     });
   }, [activeType, items]);
 
+  const occasions = useMemo(() => [...new Set(outfits.flatMap((outfit) => outfit.occasion || []))].sort(), [outfits]);
+  const visibleOutfits = useMemo(() => (
+    activeOccasion === "all" ? outfits : outfits.filter((outfit) => outfit.occasion?.includes(activeOccasion))
+  ), [activeOccasion, outfits]);
+
   const chooseType = (typeId) => {
     setActiveType(typeId);
     setSelectedId(null);
+  };
+
+  const chooseCollection = (collection) => {
+    setActiveCollection(collection);
+    setSelectedId(null);
+    setSelectedOutfitId(null);
   };
 
   const saveItem = (updatedItem) => {
@@ -604,46 +726,76 @@ export function App() {
   }, []);
 
   return (
-    <div className={`app-shell${selectedItem ? " has-selection" : ""}`}>
+    <div className={`app-shell${selectedItem || selectedOutfit ? " has-selection" : ""}`}>
       <main className="gallery-pane">
         <header className="gallery-header">
           <div className="gallery-meta-row">
-            <p className="piece-count">{items.length} {items.length === 1 ? "piece" : "pieces"}</p>
+            <nav className="collection-nav" aria-label="Choose wardrobe collection">
+              <button type="button" className={activeCollection === "wardrobe" ? "active" : ""} onClick={() => chooseCollection("wardrobe")} aria-pressed={activeCollection === "wardrobe"}>Wardrobe</button>
+              <button type="button" className={activeCollection === "outfits" ? "active" : ""} onClick={() => chooseCollection("outfits")} aria-pressed={activeCollection === "outfits"}>Outfits</button>
+            </nav>
+            <p className="piece-count">
+              {activeCollection === "wardrobe"
+                ? `${items.length} ${items.length === 1 ? "piece" : "pieces"}`
+                : `${outfits.length} ${outfits.length === 1 ? "look" : "looks"}`}
+            </p>
           </div>
-          <nav className="category-nav" aria-label="Filter wardrobe by item type">
-            {TYPES.map((type) => (
-              <button
-                key={type.id}
-                type="button"
-                className={activeType === type.id ? "active" : ""}
-                onClick={() => chooseType(type.id)}
-                aria-pressed={activeType === type.id}
-              >
-                {type.label}
-              </button>
-            ))}
-          </nav>
+          {activeCollection === "wardrobe" ? (
+            <nav className="category-nav" aria-label="Filter wardrobe by item type">
+              {TYPES.map((type) => (
+                <button
+                  key={type.id}
+                  type="button"
+                  className={activeType === type.id ? "active" : ""}
+                  onClick={() => chooseType(type.id)}
+                  aria-pressed={activeType === type.id}
+                >
+                  {type.label}
+                </button>
+              ))}
+            </nav>
+          ) : (
+            <nav className="category-nav outfit-filter-nav" aria-label="Filter outfits by occasion">
+              <button type="button" className={activeOccasion === "all" ? "active" : ""} onClick={() => setActiveOccasion("all")} aria-pressed={activeOccasion === "all"}>All looks</button>
+              {occasions.map((occasion) => (
+                <button key={occasion} type="button" className={activeOccasion === occasion ? "active" : ""} onClick={() => setActiveOccasion(occasion)} aria-pressed={activeOccasion === occasion}>{humanize(occasion)}</button>
+              ))}
+            </nav>
+          )}
         </header>
 
-        {error && <p className="status error">{error}</p>}
-        {!error && loading && <p className="status">Loading wardrobe</p>}
-        {!error && !loading && !items.length && <p className="status empty">Drop, paste, or add a photo to import your first piece.</p>}
-
-        {!!items.length && (
-          <section className="gallery-grid" aria-label={`${TYPE_MAP[activeType]?.label || "All"} wardrobe items`}>
-            {visibleItems.map((item) => (
-              <GalleryItem
-                key={item.id}
-                item={item}
-                selected={selectedId === item.id}
-                onOpen={setSelectedId}
-              />
-            ))}
-          </section>
+        {activeCollection === "wardrobe" ? (
+          <>
+            {error && <p className="status error">{error}</p>}
+            {!error && loading && <p className="status">Loading wardrobe</p>}
+            {!error && !loading && !items.length && <p className="status empty">Drop, paste, or add a photo to import your first piece.</p>}
+            {!!items.length && (
+              <section className="gallery-grid" aria-label={`${TYPE_MAP[activeType]?.label || "All"} wardrobe items`}>
+                {visibleItems.map((item) => (
+                  <GalleryItem key={item.id} item={item} selected={selectedId === item.id} onOpen={setSelectedId} />
+                ))}
+              </section>
+            )}
+          </>
+        ) : (
+          <>
+            {outfitsError && <p className="status error">{outfitsError}</p>}
+            {!outfitsError && outfitsLoading && <p className="status">Loading outfits</p>}
+            {!outfitsError && !outfitsLoading && !outfits.length && <p className="status empty">Generated looks will appear here.</p>}
+            {!!outfits.length && !visibleOutfits.length && <p className="status empty">No looks match this occasion.</p>}
+            {!!visibleOutfits.length && (
+              <section className="outfit-grid" aria-label={`${activeOccasion === "all" ? "All" : humanize(activeOccasion)} outfits`}>
+                {visibleOutfits.map((outfit) => (
+                  <OutfitCard key={outfit.id} outfit={outfit} selected={selectedOutfitId === outfit.id} onOpen={setSelectedOutfitId} />
+                ))}
+              </section>
+            )}
+          </>
         )}
       </main>
 
       {selectedItem && <ItemViewer item={selectedItem} onClose={() => setSelectedId(null)} onSave={saveItem} onDelete={deleteItem} />}
+      {selectedOutfit && <OutfitViewer outfit={selectedOutfit} garments={selectedOutfitGarments} onClose={() => setSelectedOutfitId(null)} />}
       <WardrobeImportFlow onGarmentApproved={addImportedItem} onModeledApproved={attachImportedModeledImage} />
     </div>
   );
