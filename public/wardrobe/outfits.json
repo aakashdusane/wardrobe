@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "outfits": [
+    {
+      "id": "tropical-khaki-weekend",
+      "name": "Tropical Khaki Weekend",
+      "occasion": [
+        "casual",
+        "warm-weather",
+        "weekend"
+      ],
+      "garmentIds": [
+        "import-58ac03d7-f41e-4711-9153-0098780e67ef",
+        "import-b0fe828d-d959-4cc8-8440-a7f574744c53",
+        "import-3d317d94-c8c2-4b28-9bde-5f918e8bef45"
+      ],
+      "reason": "The light botanical print bridges the deep navy shirt and warm khaki cargos, while round sunglasses keep the look relaxed.",
+      "setting": "a quiet warm-stone courtyard with restrained greenery",
+      "image": "/wardrobe/outfit-images/tropical-khaki-weekend.png",
+      "status": "accepted"
+    },
+    {
+      "id": "burgundy-black-city",
+      "name": "Burgundy Black City",
+      "occasion": [
+        "casual",
+        "city",
+        "evening"
+      ],
+      "garmentIds": [
+        "import-e149d2e1-383e-4247-b3d8-17a35c3317ce",
+        "import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1",
+        "import-e16c22aa-e8ed-4c63-a2ae-54bc04945310"
+      ],
+      "reason": "Black trousers ground the saturated burgundy tee, and the black clogs extend the clean dark line without competing with the chest emblem.",
+      "setting": "a calm brick pedestrian lane in warm late-afternoon light",
+      "image": "/wardrobe/outfit-images/burgundy-black-city.png",
+      "status": "accepted"
+    },
+    {
+      "id": "oatmeal-khaki-soft-neutral",
+      "name": "Oatmeal Khaki Soft Neutral",
+      "occasion": [
+        "casual",
+        "travel",
+        "layered"
+      ],
+      "garmentIds": [
+        "import-fcbf8659-e352-4636-8f92-c4d0eb389239",
+        "import-b0fe828d-d959-4cc8-8440-a7f574744c53",
+        "import-d4153754-cd2c-418a-8f83-5799e9803096"
+      ],
+      "reason": "Oatmeal and muted khaki form an easy tonal base, with dark rectangular glasses adding a crisp focal point.",
+      "setting": "a minimal cream-plaster arcade with soft morning sunlight",
+      "image": "/wardrobe/outfit-images/oatmeal-khaki-soft-neutral.png",
+      "status": "accepted"
+    },
+    {
+      "id": "pale-blue-black-smart",
+      "name": "Pale Blue Black Smart",
+      "occasion": [
+        "smart-casual",
+        "office",
+        "daytime"
+      ],
+      "garmentIds": [
+        "import-ae3d64b7-31ce-4bee-9ea9-570f35b1d98a",
+        "import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1",
+        "import-baef31c2-9305-4506-b739-6031e14f6d3e"
+      ],
+      "reason": "The black tapered trouser sharpens the airy floral shirt, while fine silver frames echo its cool pale-blue palette.",
+      "setting": "a modern wood-and-stone colonnade with subtle greenery",
+      "image": "/wardrobe/outfit-images/pale-blue-black-smart.png",
+      "status": "accepted"
+    },
+    {
+      "id": "colorblock-cargo-creative",
+      "name": "Colorblock Cargo Creative",
+      "occasion": [
+        "casual",
+        "creative",
+        "weekend"
+      ],
+      "garmentIds": [
+        "import-5af9287a-8fcb-46d0-91fb-e6073407959d",
+        "import-b0fe828d-d959-4cc8-8440-a7f574744c53",
+        "import-e16c22aa-e8ed-4c63-a2ae-54bc04945310"
+      ],
+      "reason": "The khaki cargos repeat the tan and olive warmth in the asymmetric sleeves, while black clogs give the graphic top a quiet anchor.",
+      "setting": "a restrained terracotta courtyard with warm natural shadows",
+      "image": "/wardrobe/outfit-images/colorblock-cargo-creative.png",
+      "status": "accepted"
+    }
+  ]
+}

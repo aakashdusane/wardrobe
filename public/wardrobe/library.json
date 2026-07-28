@@ -1,0 +1,247 @@
+[
+  {
+    "id": "import-58ac03d7-f41e-4711-9153-0098780e67ef",
+    "name": "Navy Tropical Print Shirt",
+    "part": "upperbody",
+    "color": "#172536",
+    "secondaryColor": "#d8dfc8",
+    "palette": [
+      "#172536",
+      "#d8dfc8"
+    ],
+    "tags": [
+      "button-up",
+      "short sleeve",
+      "tropical",
+      "camp collar"
+    ],
+    "image": "/wardrobe/imported/import-58ac03d7-f41e-4711-9153-0098780e67ef-garment.png",
+    "thumbnail": "/wardrobe/imported/import-58ac03d7-f41e-4711-9153-0098780e67ef-garment.png",
+    "modeledImage": "/wardrobe/imported/import-58ac03d7-f41e-4711-9153-0098780e67ef-modeled.png",
+    "importJobId": "58ac03d7-f41e-4711-9153-0098780e67ef"
+  },
+  {
+    "id": "import-3d317d94-c8c2-4b28-9bde-5f918e8bef45",
+    "name": "Round Black Sunglasses",
+    "part": "accessories_up",
+    "color": "#111111",
+    "secondaryColor": null,
+    "palette": [
+      "#111111"
+    ],
+    "tags": [
+      "sunglasses",
+      "round",
+      "dark lens",
+      "metal frame"
+    ],
+    "image": "/wardrobe/imported/import-3d317d94-c8c2-4b28-9bde-5f918e8bef45-garment.png",
+    "thumbnail": "/wardrobe/imported/import-3d317d94-c8c2-4b28-9bde-5f918e8bef45-garment.png",
+    "modeledImage": "/wardrobe/imported/import-3d317d94-c8c2-4b28-9bde-5f918e8bef45-modeled.png",
+    "importJobId": "3d317d94-c8c2-4b28-9bde-5f918e8bef45"
+  },
+  {
+    "id": "import-fcbf8659-e352-4636-8f92-c4d0eb389239",
+    "name": "Oatmeal Crewneck Sweatshirt",
+    "part": "upperbody",
+    "color": "#e5ddcf",
+    "secondaryColor": null,
+    "palette": [
+      "#e5ddcf"
+    ],
+    "tags": [
+      "sweatshirt",
+      "crewneck",
+      "long sleeve",
+      "ribbed cuff"
+    ],
+    "image": "/wardrobe/imported/import-fcbf8659-e352-4636-8f92-c4d0eb389239-garment.png",
+    "thumbnail": "/wardrobe/imported/import-fcbf8659-e352-4636-8f92-c4d0eb389239-garment.png",
+    "modeledImage": "/wardrobe/imported/import-fcbf8659-e352-4636-8f92-c4d0eb389239-modeled.png",
+    "importJobId": "fcbf8659-e352-4636-8f92-c4d0eb389239"
+  },
+  {
+    "id": "import-b0fe828d-d959-4cc8-8440-a7f574744c53",
+    "name": "Khaki Cargo Trousers",
+    "part": "lowerbody",
+    "color": "#a69f68",
+    "secondaryColor": null,
+    "palette": [
+      "#a69f68"
+    ],
+    "tags": [
+      "cargo",
+      "trousers",
+      "side pocket",
+      "straight leg"
+    ],
+    "image": "/wardrobe/imported/import-b0fe828d-d959-4cc8-8440-a7f574744c53-garment.png",
+    "thumbnail": "/wardrobe/imported/import-b0fe828d-d959-4cc8-8440-a7f574744c53-garment.png",
+    "modeledImage": "/wardrobe/imported/import-b0fe828d-d959-4cc8-8440-a7f574744c53-modeled.png",
+    "importJobId": "b0fe828d-d959-4cc8-8440-a7f574744c53"
+  },
+  {
+    "id": "import-e16c22aa-e8ed-4c63-a2ae-54bc04945310",
+    "name": "Black Rubber Clogs",
+    "part": "shoes",
+    "color": "#25282b",
+    "secondaryColor": null,
+    "palette": [
+      "#25282b"
+    ],
+    "tags": [
+      "clogs",
+      "rubber",
+      "perforated",
+      "slip-on"
+    ],
+    "image": "/wardrobe/imported/import-e16c22aa-e8ed-4c63-a2ae-54bc04945310-garment.png",
+    "thumbnail": "/wardrobe/imported/import-e16c22aa-e8ed-4c63-a2ae-54bc04945310-garment.png",
+    "modeledImage": "/wardrobe/imported/import-e16c22aa-e8ed-4c63-a2ae-54bc04945310-modeled.png",
+    "importJobId": "e16c22aa-e8ed-4c63-a2ae-54bc04945310"
+  },
+  {
+    "id": "import-d4153754-cd2c-418a-8f83-5799e9803096",
+    "name": "Dark Rectangular Eyeglasses",
+    "part": "accessories_up",
+    "color": "#282321",
+    "secondaryColor": null,
+    "palette": [
+      "#282321"
+    ],
+    "tags": [
+      "eyeglasses",
+      "rectangular",
+      "dark frame",
+      "clear lens",
+      "full rim"
+    ],
+    "image": "/wardrobe/imported/import-d4153754-cd2c-418a-8f83-5799e9803096-garment.png",
+    "thumbnail": "/wardrobe/imported/import-d4153754-cd2c-418a-8f83-5799e9803096-garment.png",
+    "modeledImage": "/wardrobe/imported/import-d4153754-cd2c-418a-8f83-5799e9803096-modeled.png",
+    "importJobId": "d4153754-cd2c-418a-8f83-5799e9803096"
+  },
+  {
+    "id": "import-c9d167ae-5457-43fd-8bff-2e8ed0d44016",
+    "name": "Black Rectangular Eyeglasses",
+    "part": "accessories_up",
+    "color": "#25232a",
+    "secondaryColor": null,
+    "palette": [
+      "#25232a"
+    ],
+    "tags": [
+      "eyeglasses",
+      "rectangular",
+      "black frame",
+      "full rim",
+      "corner rivets"
+    ],
+    "image": "/wardrobe/imported/import-c9d167ae-5457-43fd-8bff-2e8ed0d44016-garment.png",
+    "thumbnail": "/wardrobe/imported/import-c9d167ae-5457-43fd-8bff-2e8ed0d44016-garment.png",
+    "modeledImage": "/wardrobe/imported/import-c9d167ae-5457-43fd-8bff-2e8ed0d44016-modeled.png",
+    "importJobId": "c9d167ae-5457-43fd-8bff-2e8ed0d44016"
+  },
+  {
+    "id": "import-ae3d64b7-31ce-4bee-9ea9-570f35b1d98a",
+    "name": "Pale Blue Floral Shirt",
+    "part": "upperbody",
+    "color": "#d8e6e3",
+    "secondaryColor": "#a7c9cd",
+    "palette": [
+      "#d8e6e3",
+      "#a7c9cd"
+    ],
+    "tags": [
+      "button-up",
+      "floral",
+      "long sleeve",
+      "chest pocket"
+    ],
+    "image": "/wardrobe/imported/import-ae3d64b7-31ce-4bee-9ea9-570f35b1d98a-garment.png",
+    "thumbnail": "/wardrobe/imported/import-ae3d64b7-31ce-4bee-9ea9-570f35b1d98a-garment.png",
+    "modeledImage": "/wardrobe/imported/import-ae3d64b7-31ce-4bee-9ea9-570f35b1d98a-modeled.png",
+    "importJobId": "ae3d64b7-31ce-4bee-9ea9-570f35b1d98a"
+  },
+  {
+    "id": "import-baef31c2-9305-4506-b739-6031e14f6d3e",
+    "name": "Silver Rounded Square Eyeglasses",
+    "part": "accessories_up",
+    "color": "#9a978b",
+    "secondaryColor": null,
+    "palette": [
+      "#9a978b"
+    ],
+    "tags": [
+      "eyeglasses",
+      "silver frame",
+      "rounded square"
+    ],
+    "image": "/wardrobe/imported/import-baef31c2-9305-4506-b739-6031e14f6d3e-garment.png",
+    "thumbnail": "/wardrobe/imported/import-baef31c2-9305-4506-b739-6031e14f6d3e-garment.png",
+    "modeledImage": "/wardrobe/imported/import-baef31c2-9305-4506-b739-6031e14f6d3e-modeled.png",
+    "importJobId": "baef31c2-9305-4506-b739-6031e14f6d3e"
+  },
+  {
+    "id": "import-e149d2e1-383e-4247-b3d8-17a35c3317ce",
+    "name": "Burgundy Logo T-Shirt",
+    "part": "upperbody",
+    "color": "#8b2456",
+    "secondaryColor": null,
+    "palette": [
+      "#8b2456"
+    ],
+    "tags": [
+      "t-shirt",
+      "crewneck",
+      "short sleeve",
+      "small chest emblem"
+    ],
+    "image": "/wardrobe/imported/import-e149d2e1-383e-4247-b3d8-17a35c3317ce-garment.png",
+    "thumbnail": "/wardrobe/imported/import-e149d2e1-383e-4247-b3d8-17a35c3317ce-garment.png",
+    "modeledImage": "/wardrobe/imported/import-e149d2e1-383e-4247-b3d8-17a35c3317ce-modeled.png",
+    "importJobId": "e149d2e1-383e-4247-b3d8-17a35c3317ce"
+  },
+  {
+    "id": "import-5af9287a-8fcb-46d0-91fb-e6073407959d",
+    "name": "Cream Colorblock Long-Sleeve T-Shirt",
+    "part": "upperbody",
+    "color": "#e9e5d2",
+    "secondaryColor": "#555b3b",
+    "palette": [
+      "#e9e5d2",
+      "#555b3b"
+    ],
+    "tags": [
+      "long sleeve",
+      "colorblock",
+      "graphic text",
+      "crewneck",
+      "olive sleeve",
+      "tan sleeve"
+    ],
+    "image": "/wardrobe/imported/import-5af9287a-8fcb-46d0-91fb-e6073407959d-garment.png",
+    "thumbnail": "/wardrobe/imported/import-5af9287a-8fcb-46d0-91fb-e6073407959d-garment.png",
+    "modeledImage": "/wardrobe/imported/import-5af9287a-8fcb-46d0-91fb-e6073407959d-modeled.png",
+    "importJobId": "5af9287a-8fcb-46d0-91fb-e6073407959d"
+  },
+  {
+    "id": "import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1",
+    "name": "Black Tapered Trousers",
+    "part": "lowerbody",
+    "color": "#191b20",
+    "secondaryColor": null,
+    "palette": [
+      "#191b20"
+    ],
+    "tags": [
+      "trousers",
+      "tapered",
+      "black"
+    ],
+    "image": "/wardrobe/imported/import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1-garment.png",
+    "thumbnail": "/wardrobe/imported/import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1-garment.png",
+    "modeledImage": "/wardrobe/imported/import-5784209a-ba25-417c-aaaf-12ba1ca6b5b1-modeled.png",
+    "importJobId": "5784209a-ba25-417c-aaaf-12ba1ca6b5b1"
+  }
+]
