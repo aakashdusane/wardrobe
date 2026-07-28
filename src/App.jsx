@@ -798,7 +798,7 @@ export function App() {
 
       {selectedItem && <ItemViewer item={selectedItem} onClose={() => setSelectedId(null)} onSave={saveItem} onDelete={deleteItem} />}
       {selectedOutfit && <OutfitViewer outfit={selectedOutfit} garments={selectedOutfitGarments} onClose={() => setSelectedOutfitId(null)} />}
-      <WardrobeImportFlow onGarmentApproved={addImportedItem} onModeledApproved={attachImportedModeledImage} />
+      {import.meta.env.DEV && <WardrobeImportFlow onGarmentApproved={addImportedItem} onModeledApproved={attachImportedModeledImage} />}
     </div>
   );
 }

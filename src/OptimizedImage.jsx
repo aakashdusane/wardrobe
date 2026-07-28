@@ -21,8 +21,9 @@ export const OptimizedImage = forwardRef(function OptimizedImage({
   ...props
 }, ref) {
   const normalizedSource = sourcePath(src);
+  const isStaticProductionAsset = import.meta.env.PROD && normalizedSource?.startsWith("/wardrobe/");
 
-  if (!normalizedSource || normalizedSource.startsWith("data:") || normalizedSource.startsWith("blob:") || normalizedSource.startsWith("/api/")) {
+  if (!normalizedSource || isStaticProductionAsset || normalizedSource.startsWith("data:") || normalizedSource.startsWith("blob:") || normalizedSource.startsWith("/api/")) {
     return <img ref={ref} src={src} alt={alt} sizes={sizes} loading={loading || (priority ? "eager" : "lazy")} decoding={decoding || "async"} {...props} />;
   }
 
